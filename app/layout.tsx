@@ -29,17 +29,54 @@ const SITE_URL =
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Wan Wei · AI Engineer in training", template: "%s · Wan Wei" },
+  title: { default: "Wan Wei · AI Engineer", template: "%s · Wan Wei" },
   description:
-    "Lee Wan Wei. AI engineer in training at SUTD. Computer vision, RAG, full-stack systems.",
+    "Lee Wan Wei. AI engineer studying at SUTD. Computer vision, RAG, full-stack systems.",
   openGraph: {
-    title: "Wan Wei",
+    title: "Wan Wei · AI Engineer",
     description:
-      "AI engineer in training at SUTD, building careful systems where vision, language, and full-stack meet.",
+      "AI engineer studying at SUTD, building careful systems where vision, language, and full-stack meet.",
+    url: SITE_URL,
+    siteName: "Wan Wei",
     type: "website",
+    images: [
+      {
+        url: `${SITE_URL}/og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Wan Wei — building careful systems where vision, language and software meet.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Wan Wei · AI Engineer",
+    description:
+      "Building careful systems where vision, language and software meet.",
+    images: [`${SITE_URL}/og.png`],
+  },
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Lee Wan Wei",
+  alternateName: "Wan Wei",
+  url: SITE_URL,
+  jobTitle: "AI Engineer",
+  email: "mailto:wanweilee22@gmail.com",
+  sameAs: [
+    "https://github.com/wanweileee",
+    "https://www.linkedin.com/in/leewanwei",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Singapore University of Technology and Design",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Singapore",
+    addressCountry: "SG",
   },
 };
 
@@ -47,6 +84,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${caveat.variable}`}>
       <body className="bg-paper text-ink">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <Nav />
         <main>{children}</main>
         <Footer />

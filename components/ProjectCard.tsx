@@ -31,13 +31,17 @@ export default function ProjectCard({
           flipped ? "sm:col-start-7 sm:row-start-1" : "sm:col-start-1",
         ].join(" ")}
       >
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-rule bg-paper-tint transition-shadow duration-500 group-hover:shadow-[0_12px_40px_rgba(228,90,146,0.18)]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-rule bg-paper-tint transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:shadow-[0_18px_48px_-8px_rgba(228,90,146,0.28)]">
           <Image
             src={asset(cover)}
             alt={project.coverAlt ?? project.title}
             fill
             sizes="(min-width: 640px) 48vw, 100vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+            className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-accent/15 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
         </div>
       </div>
@@ -51,7 +55,7 @@ export default function ProjectCard({
           {project.year} · {project.role}
         </Marker>
         <h3
-          className="font-display text-ink leading-[1] tracking-[-0.02em] text-balance"
+          className="font-display text-ink leading-[1] tracking-[-0.02em] text-balance transition-colors duration-300 group-hover:text-accent"
           style={{
             fontSize: "clamp(28px, 3.4vw, 48px)",
             fontVariationSettings: '"opsz" 48, "wght" 380, "SOFT" 70',
@@ -66,7 +70,13 @@ export default function ProjectCard({
           href={`/projects/${project.slug}`}
           className="mt-6 inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.22em] text-accent transition-opacity hover:opacity-70"
         >
-          Read case study <span aria-hidden>→</span>
+          Read case study{" "}
+          <span
+            aria-hidden
+            className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
+          >
+            →
+          </span>
         </Link>
       </div>
     </article>

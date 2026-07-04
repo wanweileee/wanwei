@@ -6,7 +6,9 @@
   --color-ink: #2d1b25;
   --color-ink-soft: #6e5862;
   --color-rule: #f6cfd8;
-  --color-accent: #e45a92;
+  /* accent is used for links/text as well as decoration; this shade clears
+     WCAG AA (4.6:1 on paper) while keeping the same magenta-pink hue. */
+  --color-accent: #cc3b78;
   --color-accent-bright: #ff8ab5;
   --color-accent-soft: #ffd1dc;
   --color-mint: #88d9bc;

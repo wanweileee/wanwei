@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wan Wei — Portfolio
 
-## Getting Started
+Personal portfolio and writing site for Lee Wan Wei. Built as a static site with
+a warm, paper-and-sticker visual language: a draggable sticker-collage hero,
+Fraunces display type, and MDX-authored case studies and essays.
 
-First, run the development server:
+**Live:** https://wanweileee.github.io/my-portfolio
+
+## Stack
+
+- **Next.js 16** (App Router) with `output: "export"` — fully static, no server
+- **React 19** + **TypeScript**
+- **Tailwind CSS v4** with a small custom theme (`app/globals.css`)
+- **MDX** content via `next-mdx-remote` + `gray-matter`
+- **Framer Motion** for scroll reveals and page transitions
+- Deployed to **GitHub Pages** (base path `/my-portfolio`)
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+npm run build    # static export to ./out
+npm run lint
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+In production the build applies `basePath: "/my-portfolio"` and
+`assetPrefix` (see `next.config.ts`). Internal asset URLs go through the
+`asset()` helper in `lib/asset.ts` so they stay correct under the base path.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+app/                 Routes: home, /projects, /projects/[slug], /writing, /writing/[slug], /now
+components/          UI + interaction (StickerHero, ProjectCard, Nav, Reveal, ...)
+content/
+  projects/*.mdx     One file per case study (frontmatter + body)
+  writing/*.mdx      Essays and field notes
+  now.mdx            The /now page
+lib/content.ts       Loads & sorts MDX, exposes typed frontmatter
+mdx/components.tsx    Styling + custom components (CanvaEmbed, Video) available in MDX
+public/              Images, og.png (social share card), icons
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Authoring content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Add a project or post by dropping an `.mdx` file into `content/projects/` or
+`content/writing/`. Projects use frontmatter like:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```yaml
+---
+title: "Project Title"
+slug: "project-title"
+summary: "One-sentence hook."
+role: "Your role"
+year: 2026
+stack: ["Python", "Next.js"]
+cover: "/projects/cover.jpg"      # 4:3 recommended; falls back to a placeholder
+coverAlt: "Alt text"
+category: "school"                 # "school" or "side" (tabbed on /projects)
+order: 1
+draft: false
+slidesEmbed: "https://..."         # optional Canva embed used as the hero
+links:
+  - { label: "GitHub repo", href: "https://..." }
+---
+```
 
-## Deploy on Vercel
+Set `draft: true` to keep a file out of the build.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Social share image
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`public/og.png` (1200×630) is referenced from the metadata in `app/layout.tsx`
+via `openGraph` and `twitter` tags. Regenerate it from a design in that brand
+style if the tagline or name changes.

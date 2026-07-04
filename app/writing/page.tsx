@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import WritingTeaser from "@/components/WritingTeaser";
+import Reveal from "@/components/Reveal";
 import { getAllWriting, formatMonthYear } from "@/lib/content";
 
 export const metadata = {
@@ -41,16 +42,17 @@ export default async function WritingIndexPage() {
               Nothing yet. Drop an .mdx file in content/writing/ to begin.
             </p>
           )}
-          {posts.map((p) => (
-            <WritingTeaser
-              key={p.frontmatter.slug}
-              post={{
-                slug: p.frontmatter.slug,
-                title: p.frontmatter.title,
-                summary: p.frontmatter.summary,
-                date: formatMonthYear(p.frontmatter.date),
-              }}
-            />
+          {posts.map((p, i) => (
+            <Reveal key={p.frontmatter.slug} delay={Math.min(i * 0.06, 0.3)}>
+              <WritingTeaser
+                post={{
+                  slug: p.frontmatter.slug,
+                  title: p.frontmatter.title,
+                  summary: p.frontmatter.summary,
+                  date: formatMonthYear(p.frontmatter.date),
+                }}
+              />
+            </Reveal>
           ))}
         </div>
         <div className="mt-16">

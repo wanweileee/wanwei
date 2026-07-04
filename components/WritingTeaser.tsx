@@ -31,6 +31,15 @@ export default function WritingTeaser({ post }: { post: WritingTeaserData }) {
         <p className="mt-3 max-w-[60ch] text-[15px] leading-[1.6] text-ink-soft">
           {post.summary}
         </p>
+        <span className="mt-4 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          Read
+          <span
+            aria-hidden
+            className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5"
+          >
+            →
+          </span>
+        </span>
       </div>
     </Link>
   );

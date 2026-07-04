@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Rule from "./Rule";
 
 export default function Footer() {
@@ -30,6 +31,10 @@ export default function Footer() {
           >
             LinkedIn
           </a>
+          <span aria-hidden className="text-rule">·</span>
+          <Link href="/now" className="transition-colors hover:text-ink">
+            Now
+          </Link>
         </div>
         <p className="font-display text-[13px] normal-case tracking-normal text-ink-soft italic">
           Built with{" "}
